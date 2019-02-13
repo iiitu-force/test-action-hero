@@ -9,7 +9,7 @@ exports.Signup = class Signup extends Action {
     this.description = "I add a user";
     this.inputs = {
       firstName: {
-        required: false,
+        required: true,
         validator: param => {
           if (!/^([A-Za-z0-9\_]+)$/.test(param)) {
             throw new Error(
@@ -33,7 +33,7 @@ exports.Signup = class Signup extends Action {
         formatter: param => jsesc(String(param))
       },
       password: {
-        required: false,
+        required: true,
         validator: param => {
           if (param.length < 8) {
             throw new Error(
@@ -54,12 +54,12 @@ exports.Signup = class Signup extends Action {
         },
         formatter: param => jsesc(String(param))
       },
-      plan: {
-        required: false,
+      branch: {
+        required: true,
         validator: param => {
-          if (!/^\b(basic|standard|plus)\b$/.test(param)) {
+          if (!/^\b(Computer Science|Electronics and Communication Engineering| Information Technology)\b$/.test(param)) {
             throw new Error(
-              "Invalid plan, should only be basic, standard or plus"
+              "Invalid Branch, should only be Computer Science, Electronics and Communication Engineering or Information Technology"
             );
           }
           return true;
