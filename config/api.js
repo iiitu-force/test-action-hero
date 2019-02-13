@@ -7,7 +7,7 @@ exports['default'] = {
     const packageJSON = require(api.projectRoot + path.sep + 'package.json')
 
     return {
-      apiVersion: packageJSON.version,
+      apiVersion: "v1",
       serverName: packageJSON.name,
       // id can be set here, or it will be generated dynamically.
       //  Be sure that every server you run has a unique ID (which will happen when generated dynamically)
