@@ -1,0 +1,27 @@
+{
+  "name": "alumni-website",
+  "version": "1.0.0",
+  "description": "website to establish alumni network",
+  "main": "index.js",
+  "scripts": {
+    "start": "actionhero start",
+    "actionhero": "actionhero",
+    "pretest": "standard",
+    "test": "cross-env NODE_ENV=test mocha",
+    "lint": "eslint ./initializers ./migrations ./actions ./config ./models"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaharyar-shamshi/alumni-website.git"
+  },
+  "author": "shaharyar-shamshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shaharyar-shamshi/alumni-website/issues"
+  },
+  "homepage": "https://github.com/shaharyar-shamshi/alumni-website#readme",
+  "dependencies": {
+    "actionhero": "^19.1.1",
+    "jsesc": "^2.5.2"
+  }
+}
