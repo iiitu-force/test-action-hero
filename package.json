@@ -22,6 +22,7 @@
   "homepage": "https://github.com/shaharyar-shamshi/alumni-website#readme",
   "dependencies": {
     "actionhero": "^19.1.1",
-    "jsesc": "^2.5.2"
+    "jsesc": "^2.5.2",
+    "mongoose": "^5.4.12"
   }
 }
