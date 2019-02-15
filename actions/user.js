@@ -84,11 +84,15 @@ exports.Signup = class Signup extends Action {
       data.params.email,
       data.params.rollNo
     );
+    console.log("outside error");
+
     if (error) {
+      console.log("in error");
       data.response.status = 400;
-      data.response.error = error;
+      data.response.error = "user not created";
       data.response.data = {};
     } else {
+      console.log("in not error");
       data.response.status = 200;
       data.response.error = {};
       data.response.data = { token };
