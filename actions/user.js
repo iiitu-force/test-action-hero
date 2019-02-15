@@ -66,7 +66,7 @@ exports.Signup = class Signup extends Action {
         },
         formatter: param => jsesc(String(param))
       },
-      token: {
+      rollNo: {
         required: false
       }
     };
@@ -76,13 +76,13 @@ exports.Signup = class Signup extends Action {
   }
 
   async run(data) {
-    const { error, token } = await api.users.add(
+    const { error, token } = await api.users.signup(
       data.params.firstName,
       data.params.lastName,
       data.params.password,
-      data.params.plan,
+      data.params.branch,
       data.params.email,
-      data.params.token
+      data.params.rollNo
     );
     if (error) {
       data.response.status = 400;
