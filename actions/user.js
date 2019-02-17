@@ -89,7 +89,7 @@ exports.Signup = class Signup extends Action {
     if (error) {
       console.log("in error");
       data.response.status = 400;
-      data.response.error = "user not created";
+      data.response.error = "user not created kindly recheck your email or Roll NUmber";
       data.response.data = {};
     } else {
       console.log("in not error");

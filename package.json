@@ -23,6 +23,7 @@
   "dependencies": {
     "actionhero": "^19.1.1",
     "jsesc": "^2.5.2",
+    "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.12",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
