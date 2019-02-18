@@ -1,5 +1,6 @@
 // const mongoose = require('mongoose');
 const {Initializer, api } = require('actionhero');
+const jwt = require("jsonwebtoken");
 const crypto = require('crypto');
 const mongoose = require('mongoose'),
       passport = require('passport'),
