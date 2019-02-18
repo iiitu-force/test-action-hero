@@ -77,9 +77,7 @@ module.exports = class Users extends Initializer {
 
       login: async (email, password) => {
         // extract usrr with particular email id
-        var user = null;
-        var user = await User.find({'email':email});
-        console.log(user);
+        const user = await User.find({'email':email});
         if (user === null) {
           const description = "User with email not found";
           api.log(description);
@@ -92,10 +90,10 @@ module.exports = class Users extends Initializer {
         }
         const passwordHash = crypto
           .createHash("sha256")
-          .update(user.password_salt + password)
+          .update(user[0].password_salt + password)
           .digest("hex");
           
-        if (user.password_hash !== passwordHash) {
+        if (user[0].password_hash !== passwordHash) {
           const description = "Incorrect password";
           api.log(description);
           const error = {
