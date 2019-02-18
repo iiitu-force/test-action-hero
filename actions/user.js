@@ -99,3 +99,40 @@ exports.Signup = class Signup extends Action {
     }
   }
 };
+
+exports.Login = class Login extends Action {
+  constructor() {
+    super();
+    this.name = "login";
+    this.description = "I authenticate a user";
+    this.inputs = {
+      email: {
+        required: true,
+        formatter: param => jsesc(String(param))
+      },
+      password: {
+        required: true,
+        formatter: param => jsesc(String(param))
+      }
+    };
+    this.authenticated = false;
+    this.outputExample = {};
+    this.version = "v1";
+  }
+
+  async run(data) {
+    const { error, token } = await api.users.login(
+      data.params.email,
+      data.params.password
+    );
+    if (error) {
+      data.response.status = 400;
+      data.response.error = error;
+      data.response.data = {};
+    } else {
+      data.response.status = 200;
+      data.response.error = {};
+      data.response.data = { token };
+    }
+  }
+};
