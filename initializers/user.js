@@ -77,6 +77,8 @@ module.exports = class Users extends Initializer {
 
       login: async (email, password) => {
         // extract usrr with particular email id
+        var user = User.findOne({},{projection : {email:email}});
+        console.log(user);
         if (user === null) {
           const description = "User with email not found";
           api.log(description);
