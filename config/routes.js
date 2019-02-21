@@ -4,15 +4,12 @@ exports['default'] = {
 
       get: [  
         { path: "/:apiversion/signup", action: "signup" },
+        { path: "/:apiversion/", action: "home"}
       ],
 
       post: [
         {path: "/:apiversion/login", action: "login"},
       ]
-
-      // get: [
-      //   { path: "/:apiversion/home", action: "home"}
-      // ]
     }
   }
 }

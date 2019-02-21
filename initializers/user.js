@@ -76,9 +76,7 @@ module.exports = class Users extends Initializer {
       },
 
       login: async (email, password) => {
-        // extract usrr with particular email id
         const user = await User.findOne({'email':email});
-        // console.log(user);
         if (user === null) {
           const description = "User with email not found";
           api.log(description);
@@ -120,6 +118,10 @@ module.exports = class Users extends Initializer {
         };
         return { error: err, token: null };
       },
+
+      home: async () => {
+        return { error: null , token : "success"};
+        }
     }
   }
 }
