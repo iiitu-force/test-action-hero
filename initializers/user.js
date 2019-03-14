@@ -1,12 +1,12 @@
 // const mongoose = require('mongoose');
-const {Initializer, api } = require('actionhero');
+const { Initializer, api } = require("actionhero");
 const jwt = require("jsonwebtoken");
-const crypto = require('crypto');
-const mongoose = require('mongoose'),
-      passport = require('passport'),
-      localStrategy = require('passport-local'),
-      passportLocalMongoose = require('passport-local-mongoose');
-    // const User = require('/home/ayush/IIITU/alumni-website/models/user.js');
+const crypto = require("crypto");
+const mongoose = require("mongoose"),
+  passport = require("passport"),
+  localStrategy = require("passport-local"),
+  passportLocalMongoose = require("passport-local-mongoose");
+// const User = require('/home/ayush/IIITU/alumni-website/models/user.js');
 
 mongoose.connect("mongodb://localhost/alumni_db");
 
@@ -26,15 +26,16 @@ function getPassword(password) {
   return [passwordSalt, passwordHash];
 }
 
-
 var userSchema = new mongoose.Schema({
-  firstName : String ,
-  lastName : String ,
-  rollNo : {type:String , unique: true},
-  email : {type: String , unique:true},
-  branch :String ,
-  password_hash :String,
-  password_salt: String
+  firstName: String,
+  lastName: String,
+  rollNo: { type: String, unique: true },
+  email: { type: String, unique: true },
+  branch: String,
+  password_hash: String,
+  password_salt: String,
+  contact: String,
+  organization: String
 });
 
 var User = mongoose.model("User", userSchema);
@@ -50,34 +51,44 @@ module.exports = class Users extends Initializer {
 
   async initialize() {
     api.users = {
-      signup: async (firstName, lastName, password, branch, email, rollNo) => {
-            
+      signup: async (
+        firstName,
+        lastName,
+        password,
+        branch,
+        email,
+        rollNo,
+        organization,
+        contactNumber
+      ) => {
         try {
           let newPassword = [null, null];
           if (password) {
             newPassword = getPassword(password);
           }
           var newUser = await User.create({
-            firstName : firstName,
-            lastName : lastName,
-            password_hash : newPassword[1],
-            password_salt : newPassword[0],
-            branch : branch,
-            rollNo : rollNo,
-            email : email
+            firstName: firstName,
+            lastName: lastName,
+            password_hash: newPassword[1],
+            password_salt: newPassword[0],
+            branch: branch,
+            rollNo: rollNo,
+            email: email,
+            organization: organization,
+            contact: contactNumber
           });
           await newUser.save();
-        } catch(err) {
+        } catch (err) {
           console.log(err);
-          return {error: err, token:null}
+          return { error: err, token: null };
         }
-          
-         return {error: null, token: "success"};
+
+        return { error: null, token: "success" };
       },
 
       login: async (email, password) => {
         // extract usrr with particular email id
-        const user = await User.find({'email':email});
+        const user = await User.find({ email: email });
         if (user === null) {
           const description = "User with email not found";
           api.log(description);
@@ -92,7 +103,7 @@ module.exports = class Users extends Initializer {
           .createHash("sha256")
           .update(user[0].password_salt + password)
           .digest("hex");
-          
+
         if (user[0].password_hash !== passwordHash) {
           const description = "Incorrect password";
           api.log(description);
@@ -118,7 +129,7 @@ module.exports = class Users extends Initializer {
           parameter: "token"
         };
         return { error: err, token: null };
-      },
-    }
+      }
+    };
   }
-}
+};
