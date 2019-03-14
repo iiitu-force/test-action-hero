@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 const jsesc = require("jsesc");
-const { Action, api } = require('actionhero')
+const { Action, api } = require("actionhero");
 
 exports.Signup = class Signup extends Action {
   constructor() {
@@ -57,7 +57,11 @@ exports.Signup = class Signup extends Action {
       branch: {
         required: true,
         validator: param => {
-          if (!/^\b(Computer Science|Electronics and Communication Engineering| Information Technology)\b$/.test(param)) {
+          if (
+            !/^\b(Computer Science|Electronics and Communication Engineering| Information Technology)\b$/.test(
+              param
+            )
+          ) {
             throw new Error(
               "Invalid Branch, should only be Computer Science, Electronics and Communication Engineering or Information Technology"
             );
@@ -68,6 +72,12 @@ exports.Signup = class Signup extends Action {
       },
       rollNo: {
         required: false
+      },
+      organization: {
+        required: true
+      },
+      contactNumber: {
+        required: true
       }
     };
     this.authenticated = false;
@@ -82,14 +92,17 @@ exports.Signup = class Signup extends Action {
       data.params.password,
       data.params.branch,
       data.params.email,
-      data.params.rollNo
+      data.params.rollNo,
+      data.params.organization,
+      data.params.contactNumber
     );
     console.log("outside error");
 
     if (error) {
       console.log("in error");
       data.response.status = 400;
-      data.response.error = "user not created kindly recheck your email or Roll NUmber";
+      data.response.error =
+        "user not created kindly recheck your email or Roll NUmber";
       data.response.data = {};
     } else {
       console.log("in not error");
