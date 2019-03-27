@@ -156,10 +156,13 @@ exports.Home = class Home extends Action {
     this.name = "home";
     this.description = "I am home";
     this.version = "v1";
+    this.authenticated = true;
   }
 
   async run(data) {
+    const userId = data.connection.session.user.id;
     const { error, token } = await api.users.home(
+      userId
     );
     if (error) {
       data.response.status = 400;
