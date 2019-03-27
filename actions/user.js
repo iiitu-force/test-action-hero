@@ -149,3 +149,26 @@ exports.Login = class Login extends Action {
     }
   }
 };
+
+exports.Home = class Home extends Action {
+  constructor() {
+    super();
+    this.name = "home";
+    this.description = "I am home";
+    this.version = "v1";
+  }
+
+  async run(data) {
+    const { error, token } = await api.users.home(
+    );
+    if (error) {
+      data.response.status = 400;
+      data.response.error = error;
+      data.response.data = {};
+    } else {
+      data.response.status = 200;
+      data.response.error = {};
+      data.response.data = { token };
+    }
+  }
+};
